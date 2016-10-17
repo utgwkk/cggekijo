@@ -12,7 +12,10 @@ for url in sys.stdin:
     soup = BeautifulSoup(html, "html.parser")
 
     splitted = soup.find('h2').a.text.split(' ', 2)
-    number = int(splitted[1].replace('第', '').replace('話', ''))
+    try:
+        number = int(splitted[1].replace('第', '').replace('話', ''))
+    except ValueError:
+        continue
     title = splitted[2]
     print(number, title, file=sys.stderr)
 
